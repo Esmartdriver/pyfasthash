@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.md')) as f:
 
 machine = platform.machine()
 is_x86 = machine in ['i386', 'i686', 'x86_64']
-is_arm = machine in ['aarch64', 'aarch64_be', 'armv8b', 'armv8l']
+is_arm = machine in ['aarch64', 'aarch64_be', 'armv8b', 'armv8l', 'armv7l']
 is_ppc = machine in ['ppc', 'ppc64', 'ppc64le', 'ppc64le']
 is_posix = os.name == "posix"
 is_64bits = sys.maxsize > 2**32
@@ -122,17 +122,17 @@ c_libraries = [(
     }
 ), (
     'smhasher', {
-        "sources": [
+        "sources": list(filter(None, [
             'src/smhasher/MurmurHash1.cpp',
             'src/smhasher/MurmurHash2.cpp',
             'src/smhasher/MurmurHash3.cpp',
             'src/smhasher/City.cpp',
             'src/smhasher/Spooky.cpp',
             'src/smhasher/metrohash64.cpp',
-            'src/smhasher/metrohash64crc.cpp',
+            'src/smhasher/metrohash64crc.cpp' if is_x86 else None,
             'src/smhasher/metrohash128.cpp',
-            'src/smhasher/metrohash128crc.cpp',
-        ],
+            'src/smhasher/metrohash128crc.cpp' if is_x86 else None,
+        ])),
         "cflags": extra_compile_args,
     }
 ), (
@@ -175,7 +175,7 @@ c_libraries = [(
             "src/highwayhash/highwayhash/hh_portable.cc",
             "src/highwayhash/highwayhash/hh_sse41.cc" if cpu.sse41 else None,
             "src/highwayhash/highwayhash/hh_avx2.cc" if cpu.avx2 else None,
-            "src/highwayhash/highwayhash/hh_neon.cc" if is_arm else None,
+            "src/highwayhash/highwayhash/hh_neon.cc" if is_arm and is_64bits else None,
             "src/highwayhash/highwayhash/hh_vsx.cc" if is_ppc else None,
         ])),
         "cflags": extra_compile_args + [
