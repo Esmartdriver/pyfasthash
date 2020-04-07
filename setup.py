@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.md')) as f:
 
 machine = platform.machine()
 is_x86 = machine in ['i386', 'i686', 'x86_64']
-is_arm = machine in ['aarch64', 'aarch64_be', 'armv8b', 'armv8l']
+is_arm = machine in ['aarch64', 'aarch64_be', 'armv8b', 'armv8l', 'armv7l']
 is_ppc = machine in ['ppc', 'ppc64', 'ppc64le', 'ppc64le']
 is_posix = os.name == "posix"
 is_64bits = sys.maxsize > 2**32
