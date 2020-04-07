@@ -122,7 +122,7 @@ c_libraries = [(
     }
 ), (
     'smhasher', {
-        "sources": [
+        "sources": list(filter(None, [
             'src/smhasher/MurmurHash1.cpp',
             'src/smhasher/MurmurHash2.cpp',
             'src/smhasher/MurmurHash3.cpp',
@@ -132,7 +132,7 @@ c_libraries = [(
             'src/smhasher/metrohash64crc.cpp' if is_x86 else None,
             'src/smhasher/metrohash128.cpp',
             'src/smhasher/metrohash128crc.cpp' if is_x86 else None,
-        ],
+        ])),
         "cflags": extra_compile_args,
     }
 ), (
