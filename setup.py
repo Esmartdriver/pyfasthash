@@ -130,7 +130,6 @@ c_libraries = [(
             'src/smhasher/Spooky.cpp',
             'src/smhasher/metrohash64.cpp',
             'src/smhasher/metrohash128.cpp',
-            'src/smhasher/metrohash128crc.cpp',
         ],
         "cflags": extra_compile_args,
     }
