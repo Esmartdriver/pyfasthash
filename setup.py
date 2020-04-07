@@ -173,7 +173,7 @@ c_libraries = [(
             "src/highwayhash/highwayhash/hh_portable.cc",
             "src/highwayhash/highwayhash/hh_sse41.cc" if cpu.sse41 else None,
             "src/highwayhash/highwayhash/hh_avx2.cc" if cpu.avx2 else None,
-            "src/highwayhash/highwayhash/hh_neon.cc" if is_arm else None,
+            "src/highwayhash/highwayhash/hh_neon.cc" if is_arm and is_64bits else None,
             "src/highwayhash/highwayhash/hh_vsx.cc" if is_ppc else None,
         ])),
         "cflags": extra_compile_args + [
